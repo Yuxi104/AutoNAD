@@ -1,0 +1,20 @@
+ninja_required_version = 1.3
+cxx = c++
+
+cflags = -pthread -B /home/ty/ty/anaconda3/envs/cream/compiler_compat -Wl,--sysroot=/ -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall -Wstrict-prototypes -fPIC -I/home/ty/ty/anaconda3/envs/cream/lib/python3.7/site-packages/torch/include -I/home/ty/ty/anaconda3/envs/cream/lib/python3.7/site-packages/torch/include/torch/csrc/api/include -I/home/ty/ty/anaconda3/envs/cream/lib/python3.7/site-packages/torch/include/TH -I/home/ty/ty/anaconda3/envs/cream/lib/python3.7/site-packages/torch/include/THC -I/home/ty/ty/anaconda3/envs/cream/include/python3.7m -c
+post_cflags = -DTORCH_API_INCLUDE_EXTENSION_H '-DPYBIND11_COMPILER_TYPE="_gcc"' '-DPYBIND11_STDLIB="_libstdcpp"' '-DPYBIND11_BUILD_ABI="_cxxabi1011"' -DTORCH_EXTENSION_NAME=apex_C -D_GLIBCXX_USE_CXX11_ABI=0 -std=c++14
+ldflags = 
+
+rule compile
+  command = $cxx -MMD -MF $out.d $cflags -c $in -o $out $post_cflags
+  depfile = $out.d
+  deps = gcc
+
+
+
+build /bk1/ty/cream/AutoFormer/lib/build/temp.linux-x86_64-3.7/csrc/flatten_unflatten.o: compile /bk1/ty/cream/AutoFormer/lib/csrc/flatten_unflatten.cpp
+
+
+
+
+

@@ -1,0 +1,12 @@
+timm==0.9.16
+torch==2.2.2
+torchinfo==1.8.0
+torchsummary==1.5.1
+torchvision==0.17.2
+ptflops
+opencv-python
+easydict
+PyYAML
+pillow
+scikit-image
+six
