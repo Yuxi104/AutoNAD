@@ -11,7 +11,7 @@ pip install -r requirements.txt
 ```
 
 ## Data Preparation
-The dataset used in this project **need to be download from [here](https://github.com/Yuxi104/AutoNAD/releases/tag/v1)** (The dataset has been preprocessed).
+The datasets used in this project **need to be download from [here](https://github.com/Yuxi104/AutoNAD/releases/tag/v1)** (The datasets have been preprocessed).
 
 The directory structure is the standard layout as following.
 ```plaintext
@@ -64,7 +64,7 @@ bash retrain.sh
 ```
 
 ## Test
-```
+```bash
 cd run
 bash test.sh
 ```
