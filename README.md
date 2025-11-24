@@ -82,4 +82,4 @@ If you found this work helpful, please consider to cite it. Thank you!
 
 
 ## Acknowledge
-Our repository is built on excellent works include [Autoformer](https://github.com/microsoft/Cream/tree/main/AutoFormer), [ACmix](https://github.com/LeapLabTHU/ACmix), [PVT](https://github.com/whai362/PVT), and [imgaug](https://github.com/aleju/imgaug).
+Our repository is based on [Autoformer](https://github.com/microsoft/Cream/tree/main/AutoFormer), [ACmix](https://github.com/LeapLabTHU/ACmix), [PVT](https://github.com/whai362/PVT), and [imgaug](https://github.com/aleju/imgaug).
