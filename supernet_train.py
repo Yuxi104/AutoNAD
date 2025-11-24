@@ -401,17 +401,6 @@ def main(args):
     retrain_config = None
     if args.mode == 'retrain' and "RETRAIN":
         retrain_config = {}
-        
-        retrain_config = {}
-        retrain_config['depth'] = [1, 3, 3, 2]
-        retrain_config['mlp_ratio'] = [[7.5], [8.0, 8.0, 8.0], [4.5, 4.0, 4.0], [3.5, 3.5]]
-        retrain_config['num_heads'] = [[1], [2, 2, 3], [6, 6, 5], [7, 7]]   
-        retrain_config['kernel_size'] = [[3], [5, 0, 0], [0, 5, 1], [0, 1]] 
-        retrain_config['embed_dim'] = [64, 128, 320, 512] 
-        retrain_config['conv_choice'] = [1, 3, 1, 1, 0, 1, 0, 1, 3, 3]
-        retrain_config['pool_scale'] = [1, 2, 3, 6]
-        
-
     if args.eval:
         test_stats = evaluate_lat(data_loader_val, model, device, args.nb_classes, choices, mode=args.mode, retrain_config=retrain_config)
         val_info = str(test_stats)
