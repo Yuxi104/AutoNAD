@@ -1,5 +1,5 @@
 # Automated Neural Architecture Design for Industrial Defect Detection 
-This is an official implementation of our paper [**AutoNAD**](https://arxiv.org/abs/2510.06669)
+This is an official implementation of our paper [**AutoNAD**](https://arxiv.org/abs/2510.06669) [*IEEE/ASME Transactions on Mechatronics*, 2025].
 
 
 ## Environment Setup
