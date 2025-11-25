@@ -214,10 +214,10 @@ class Attention_Super(nn.Module):
         
         # For CNN
         self.cov_3_norm = LayerNormSuper(super_embed_dim)
-        self.cov_5_norm = LayerNormSuper(super_embed_dim)
+        # self.cov_5_norm = LayerNormSuper(super_embed_dim)
         self.fc = Conv2dSuper(3*self.num_heads,self.super_kernel_size*self.super_kernel_size, kernel_size=1,stride=1)
         self.dep_conv_3 = DPConv2dSuper(9*super_embed_dim//self.num_heads, super_embed_dim, kernel_size=3, bias=True, groups=super_embed_dim//self.num_heads, padding=1)
-        self.dep_conv_5 = DPConv2dSuper(25*super_embed_dim//self.num_heads, super_embed_dim, kernel_size=5, bias=True, groups=super_embed_dim//self.num_heads, padding=2)
+        # self.dep_conv_5 = DPConv2dSuper(25*super_embed_dim//self.num_heads, super_embed_dim, kernel_size=5, bias=True, groups=super_embed_dim//self.num_heads, padding=2)
         
         # For MLP
         self.mlp = LinearSuper(super_embed_dim, super_embed_dim)
@@ -247,12 +247,12 @@ class Attention_Super(nn.Module):
                                             divisor=divisor)
             self.cov_3_norm.set_sample_config(self.sample_qk_embed_dim)
 
-        if sample_kernel_size==5:
-            self.fc.set_sample_config(sample_in_dim=3 * self.sample_num_heads, sample_out_dim=25)
-            self.dep_conv_5.set_sample_config(sample_in_dim=25 * sample_in_embed_dim // self.sample_num_heads,
-                                            sample_out_dim=self.sample_qk_embed_dim, sample_num_heads=sample_num_heads,
-                                            divisor=divisor)
-            self.cov_5_norm.set_sample_config(self.sample_qk_embed_dim)
+        # if sample_kernel_size==5:
+        #     self.fc.set_sample_config(sample_in_dim=3 * self.sample_num_heads, sample_out_dim=25)
+        #     self.dep_conv_5.set_sample_config(sample_in_dim=25 * sample_in_embed_dim // self.sample_num_heads,
+        #                                     sample_out_dim=self.sample_qk_embed_dim, sample_num_heads=sample_num_heads,
+        #                                     divisor=divisor)
+        #     self.cov_5_norm.set_sample_config(self.sample_qk_embed_dim)
 
         # `0` represents MLP
         if sample_kernel_size==0:
@@ -350,14 +350,14 @@ class Attention_Super(nn.Module):
             out_conv = self.act(out_conv)
 
 
-        if self.sample_kernel_size==5:
-            qkv = torch.cat((q, kv_), dim=1)
-            f_all = qkv.reshape(B, H * W, 3 * self.sample_num_heads, -1).permute(0, 2, 1, 3)  # B, 3*nhead, H*W, C//nhead
-            f_conv = self.fc(f_all).permute(0, 3, 1, 2)
-            f_conv = f_conv.reshape(B, -1, H, W)  # B, 9*C//nhead, H, W
-            out_conv = self.dep_conv_5(f_conv).permute(0, 2, 3, 1).reshape(B, N, -1) # B, H, W, C
-            out_conv = self.cov_5_norm(out_conv)
-            out_conv = self.act(out_conv)
+        # if self.sample_kernel_size==5:
+        #     qkv = torch.cat((q, kv_), dim=1)
+        #     f_all = qkv.reshape(B, H * W, 3 * self.sample_num_heads, -1).permute(0, 2, 1, 3)  # B, 3*nhead, H*W, C//nhead
+        #     f_conv = self.fc(f_all).permute(0, 3, 1, 2)
+        #     f_conv = f_conv.reshape(B, -1, H, W)  # B, 9*C//nhead, H, W
+        #     out_conv = self.dep_conv_5(f_conv).permute(0, 2, 3, 1).reshape(B, N, -1) # B, H, W, C
+        #     out_conv = self.cov_5_norm(out_conv)
+        #     out_conv = self.act(out_conv)
             
 
         if self.sample_kernel_size==1:
@@ -399,8 +399,8 @@ class Attention_Super(nn.Module):
             x = x
         if self.sample_kernel_size == 3:
             x = out_conv
-        if self.sample_kernel_size == 5:
-            x = out_conv
+        # if self.sample_kernel_size == 5:
+        #     x = out_conv
 
         x = self.proj(x)
         x = self.proj_drop(x)
