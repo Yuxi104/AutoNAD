@@ -25,7 +25,7 @@ class SegmentationPresetTrain:
             crop_size = None
             trans = [T.Resize((base_size, base_size))]
         elif dataset == 'msd':
-            base_size = 512
+            base_size = 540
             crop_size = None
             trans = [T.Resize(base_size)]
 
@@ -56,7 +56,7 @@ class SegmentationPresetEval:
             base_size = 200
             trans = [T.Resize((base_size, base_size))]
         elif dataset == 'msd':
-            base_size = 512
+            base_size = 540
             trans = [T.Resize(base_size)]
 
         trans.extend([
